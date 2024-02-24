@@ -1,4 +1,10 @@
 package fitness;
 
-public class Instructor {
+public enum Instructor {
+    JENNIFER,
+    KIM,
+    DENISE,
+    DAVIS,
+    EMMA
 }
+

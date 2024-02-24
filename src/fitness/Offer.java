@@ -1,4 +1,7 @@
 package fitness;
 
-public class Offer {
+public enum Offer {
+    PILATES,
+    SPINNING,
+    CARDIO;
 }

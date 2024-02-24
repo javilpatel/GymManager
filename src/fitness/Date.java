@@ -1,3 +1,11 @@
+/**
+ * Represents a calendar date with year, month, and day fields.
+ * It checks the validity of a date and compares dates. This class
+ * also includes methods to get the current date and check for leap years.
+ * The class follows the coding standards provided for CS 213 Spring 2024.
+ *
+ * @author Javil Patel
+ */
 package fitness;
 
 import java.util.Calendar;
@@ -6,9 +14,9 @@ public class Date implements Comparable<Date> {
     public static final int QUADRENNIAL = 4;
     public static final int CENTENNIAL = 100;
     public static final int QUATERCENTENNIAL = 400;
-    private int year;
-    private int month;
-    private int day;
+    private final int year;
+    private final int month;
+    private final int day;
 
     // Parameterized constructor that takes a string in the form of "mm/dd/yyyy"
     public Date(String date) {
@@ -20,10 +28,10 @@ public class Date implements Comparable<Date> {
     }
 
     // Default constructor that creates a date with today's date
-    public Date() {
+    public Date(int i, int i1, int i2) {
         Calendar today = Calendar.getInstance();
         this.year = today.get(Calendar.YEAR);
-        this.month = today.get(Calendar.MONTH) + 1; // Calendar.MONTH is zero-based
+        this.month = today.get(Calendar.MONTH) + 1;
         this.day = today.get(Calendar.DAY_OF_MONTH);
     }
 
@@ -36,7 +44,8 @@ public class Date implements Comparable<Date> {
 
     // Static method to return today's date
     public static Date today() {
-        return new Date();
+        Calendar cal = Calendar.getInstance();
+        return new Date(cal.get(Calendar.YEAR), cal.get(Calendar.MONTH) + 1, cal.get(Calendar.DAY_OF_MONTH));
     }
 
     // Method that compares two Date objects
@@ -66,6 +75,26 @@ public class Date implements Comparable<Date> {
     // Helper method to determine if the year is a leap year
     private boolean isLeapYear() {
         return (year % QUADRENNIAL == 0) && ((year % CENTENNIAL != 0) || (year % QUATERCENTENNIAL == 0));
+    }
+
+    public boolean isFutureDate() {
+        Calendar today = Calendar.getInstance();
+        Calendar thisDate = Calendar.getInstance();
+        thisDate.set(year, month - 1, day); // Calendar months are 0-based
+        return thisDate.after(today);
+    }
+
+    // Method to calculate age based on this Date object
+    public int calculateAge() {
+        Calendar today = Calendar.getInstance();
+        Calendar birthDate = Calendar.getInstance();
+        birthDate.set(year, month - 1, day); // Setting the birth date
+
+        int age = today.get(Calendar.YEAR) - birthDate.get(Calendar.YEAR);
+        if (today.get(Calendar.DAY_OF_YEAR) < birthDate.get(Calendar.DAY_OF_YEAR)) {
+            age--; // Adjust if we're before the birthday this year
+        }
+        return age;
     }
 
     // Return the textual representation of the Date object
