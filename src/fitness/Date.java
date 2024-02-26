@@ -122,7 +122,8 @@ public class Date implements Comparable<Date> {
         if (this == obj) return true;
         if (obj == null || getClass() != obj.getClass()) return false;
         Date other = (Date) obj;
-        return this.year == other.year && this.month == other.month && this.day == other.day;
+        return year == other.year && month == other.month && day == other.day;
     }
+
 }
 

@@ -44,7 +44,7 @@ public class StudioManager {
         } catch (FileNotFoundException e) {
             System.out.println("File not found: " + e.getMessage());
         } catch (Exception e) {
-            System.out.println("An error occurred: " + e.getMessage());
+            System.out.println("The date contains characters");
         }
     }
 
@@ -152,12 +152,12 @@ public class StudioManager {
         }
 
         if (memberList.contains(member)) {
-            System.out.println(firstName + " " + lastName + " already exists in the database.");
+            System.out.println(firstName + " " + lastName + " is already in the member database.");
             return;
         }
 
         memberList.add(member);
-        System.out.println("Member added successfully.");
+        System.out.println(firstName + " " + lastName + " added.");
     }
 
 
@@ -169,17 +169,18 @@ public class StudioManager {
 
         String firstName = tokens[1];
         String lastName = tokens[2];
-        Date dob = new Date(tokens[3]);
+        Date dob = new Date(tokens[3]); // Assumes this constructor correctly parses the date string.
 
         Profile profile = new Profile(firstName, lastName, dob);
-        Member member = new Member(profile, null, null); // Expiration date and home studio are not needed for cancellation
+        Member memberToCancel = memberList.findMember(profile);
 
-        if (!memberList.remove(member)) {
-            System.out.println("Member not found in the database.");
-            return;
+        if (memberToCancel == null) {
+            System.out.println(firstName + " " + lastName + " is not in the database.");
+        } else {
+            if (memberList.remove(memberToCancel)) {
+                System.out.println(firstName + " " + lastName + " removed.");
+            }
         }
-
-        System.out.println("Membership cancelled successfully.");
     }
 
     private void takeAttendance(String[] tokens, boolean isGuest) {

@@ -36,9 +36,9 @@ public class Member implements Comparable<Member> {
     @Override
     public boolean equals(Object obj) {
         if (this == obj) return true;
-        if (!(obj instanceof Member)) return false;
+        if (obj == null || getClass() != obj.getClass()) return false;
         Member other = (Member) obj;
-        return profile.equals(other.profile) && expire.equals(other.expire) && homeStudio == other.homeStudio;
+        return profile.equals(other.profile); // Assuming profile is the Profile object in Member
     }
 
     @Override
@@ -128,4 +128,5 @@ class Premium extends Member {
         int billingCycleMonths = 12 - freeMonth;
         return baseFee * billingCycleMonths;
     }
+
 }
