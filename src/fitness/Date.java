@@ -18,7 +18,13 @@ public class Date implements Comparable<Date> {
     private final int month;
     private final int day;
 
-    // Parameterized constructor that takes a string in the form of "mm/dd/yyyy"
+    /**
+     * Constructs a Date object from a string representation "mm/dd/yyyy".
+     * If the date string is invalid, throws IllegalArgumentException.
+     *
+     * @param date the string representation of the date.
+     * @throws IllegalArgumentException if the date is invalid.
+     */
     public Date(String date) {
         // Parse the date string and initialize the fields
         String[] parts = date.split("/");
@@ -27,7 +33,9 @@ public class Date implements Comparable<Date> {
         this.year = Integer.parseInt(parts[2]);
     }
 
-    // Default constructor that creates a date with today's date
+    /**
+     * Constructs a Date object with today's date.
+     */
     public Date(int i, int i1, int i2) {
         Calendar today = Calendar.getInstance();
         this.year = today.get(Calendar.YEAR);
@@ -35,14 +43,22 @@ public class Date implements Comparable<Date> {
         this.day = today.get(Calendar.DAY_OF_MONTH);
     }
 
-    // Copy constructor that clones a Date object
+    /**
+     * Copy constructor for Date.
+     *
+     * @param date the Date object to clone.
+     */
     public Date(Date date) {
         this.year = date.year;
         this.month = date.month;
         this.day = date.day;
     }
 
-    // Static method to return today's date
+    /**
+     * Returns today's date as a Date object.
+     *
+     * @return the current date.
+     */
     public static Date today() {
         Calendar cal = Calendar.getInstance();
         return new Date(cal.get(Calendar.YEAR), cal.get(Calendar.MONTH) + 1, cal.get(Calendar.DAY_OF_MONTH));
@@ -56,7 +72,11 @@ public class Date implements Comparable<Date> {
         return this.day - other.day;
     }
 
-    // Check if this Date object is a valid calendar date
+    /**
+     * Checks if this Date object represents a valid calendar date.
+     *
+     * @return true if the date is valid, false otherwise.
+     */
     public boolean isValid() {
         if (month < 1 || month > 12 || day < 1) return false;
         switch (month) {
@@ -72,11 +92,20 @@ public class Date implements Comparable<Date> {
         }
     }
 
-    // Helper method to determine if the year is a leap year
+    /**
+     * Determines if the year is a leap year.
+     *
+     * @return true if the year is a leap year, false otherwise.
+     */
     private boolean isLeapYear() {
         return (year % QUADRENNIAL == 0) && ((year % CENTENNIAL != 0) || (year % QUATERCENTENNIAL == 0));
     }
 
+    /**
+     * Checks if this Date object represents a date in the future relative to today.
+     *
+     * @return true if this date is in the future, false otherwise.
+     */
     public boolean isFutureDate() {
         Calendar today = Calendar.getInstance();
         Calendar thisDate = Calendar.getInstance();
@@ -84,7 +113,11 @@ public class Date implements Comparable<Date> {
         return thisDate.after(today);
     }
 
-    // Method to calculate age based on this Date object
+    /**
+     * Calculates the age in years based on this Date object, assuming it represents a birth date.
+     *
+     * @return the age in years.
+     */
     public int calculateAge() {
         Calendar today = Calendar.getInstance();
         Calendar birthDate = Calendar.getInstance();
@@ -97,26 +130,49 @@ public class Date implements Comparable<Date> {
         return age;
     }
 
-    // Return the textual representation of the Date object
+    /**
+     * Returns a string representation of this Date object in "mm/dd/yyyy" format.
+     *
+     * @return A string representing the date, ensuring zero padding for month and day for single digits.
+     */
     @Override
     public String toString() {
         return String.format("%02d/%02d/%04d", month, day, year);
     }
 
-    // Getter methods for day, month, and year
+    /**
+     * Returns the day of the month represented by this Date object.
+     *
+     * @return The day of the month (1-31).
+     */
     public int getDay() {
         return day;
     }
 
+    /**
+     * Returns the month represented by this Date object.
+     *
+     * @return The month of the year (1-12).
+     */
     public int getMonth() {
         return month;
     }
 
+    /**
+     * Returns the year represented by this Date object.
+     *
+     * @return The year.
+     */
     public int getYear() {
         return year;
     }
 
-    // Check if two dates are the same date
+    /**
+     * Compares this Date object with another object for equality.
+     *
+     * @param obj The object to compare this Date against.
+     * @return true if the given object represents a Date equivalent to this date, false otherwise.
+     */
     @Override
     public boolean equals(Object obj) {
         if (this == obj) return true;
@@ -125,9 +181,4 @@ public class Date implements Comparable<Date> {
         return year == other.year && month == other.month && day == other.day;
     }
 
-    //Test Case 1
-
-
-
 }
-

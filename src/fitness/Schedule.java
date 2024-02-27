@@ -56,19 +56,19 @@ public class Schedule {
         return null; // No class found
     }
 
-    public void displayClasses(){
+    public void displayClasses() {
 
         System.out.println("-Fitness Classes-");
-        for(int i = 0; i <= numClasses; i++){
-            if(classes[i]==null){
+        for (int i = 0; i <= numClasses; i++) {
+            if (classes[i] == null) {
                 break;
             }
             System.out.println(classes[i]);
-            if(classes[i].getMembers().getSize() > 0){
+            if (classes[i].getMembers().getSize() > 0) {
                 System.out.println("[Attendees]");
                 classes[i].getMembers().printAllMembers();
             }
-            if(classes[i].getGuests().getSize() > 0){
+            if (classes[i].getGuests().getSize() > 0) {
                 System.out.println("[Guests]");
                 classes[i].getGuests().printAllMembers();
             }
@@ -93,11 +93,11 @@ public class Schedule {
         return classes;
     }
 
-    public boolean validLocation(FitnessClass fitnessClass){
+    public boolean validLocation(FitnessClass fitnessClass) {
 
-        for(FitnessClass fitnessClass1: getClasses()){
-            if(fitnessClass1!=null){
-                if(fitnessClass1.getClassInfo().name().equalsIgnoreCase(fitnessClass.getClassInfo().name()) && fitnessClass1.getInstructor().name().equalsIgnoreCase(fitnessClass.getInstructor().name())&& fitnessClass1.getStudio().name().toString().equalsIgnoreCase(fitnessClass.getStudio().name().toString())){
+        for (FitnessClass fitnessClass1 : getClasses()) {
+            if (fitnessClass1 != null) {
+                if (fitnessClass1.getClassInfo().name().equalsIgnoreCase(fitnessClass.getClassInfo().name()) && fitnessClass1.getInstructor().name().equalsIgnoreCase(fitnessClass.getInstructor().name()) && fitnessClass1.getStudio().name().toString().equalsIgnoreCase(fitnessClass.getStudio().name().toString())) {
                     return true;
                 }
 

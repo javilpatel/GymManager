@@ -245,7 +245,7 @@ public class StudioManager {
             return;
         }
 
-       FitnessClass fitnessClass1 = new FitnessClass(classType, instructor, studio, null);
+        FitnessClass fitnessClass1 = new FitnessClass(classType, instructor, studio, null);
 
         if(isValidClassName(schedule,fitnessClass1.getClassInfo().name())){
             if(isValidInstructor(schedule,fitnessClass1.getInstructor().name())){
@@ -471,6 +471,3 @@ public class StudioManager {
 
 
 }
-
-
-
