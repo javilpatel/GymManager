@@ -139,6 +139,21 @@ public class MemberList {
             System.out.printf("%s, Fee: %.2f%n", members[i], members[i].bill());
         }
     }
+
+    public int getSize() {
+        return size;
+    }
+
+    public String getAllMembersAsString() {
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < this.size; i++) {
+            if (this.members[i] != null) {
+                sb.append("   ").append(this.members[i].toString()).append("\n");
+            }
+        }
+        return sb.toString();
+    }
+
     public void printAllMembers() {
         for (int i = 0; i < this.size; i++) {
             if (this.members[i] != null) {
