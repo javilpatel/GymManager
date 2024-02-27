@@ -46,7 +46,8 @@ public class Schedule {
     public FitnessClass findClass(String classType, Instructor instructor, Location studio) {
         for (int i = 0; i < numClasses; i++) {
             FitnessClass fitnessClass = classes[i];
-            if (fitnessClass.getClassInfo().name().equalsIgnoreCase(classType) &&
+            if (fitnessClass != null &&
+                    fitnessClass.getClassInfo().name().equalsIgnoreCase(classType) &&
                     fitnessClass.getInstructor() == instructor &&
                     fitnessClass.getStudio() == studio) {
                 return fitnessClass;
@@ -55,7 +56,26 @@ public class Schedule {
         return null; // No class found
     }
 
+    public void displayClasses(){
+
+        System.out.println("-Fitness Classes-");
+        for(int i = 0; i <= numClasses; i++){
+            if(classes[i]==null){
+                break;
+            }
+            System.out.println(classes[i]);
+            if(classes[i].getMembers().getSize() > 0){
+                System.out.println("[Attendees]");
+                classes[i].getMembers().printAllMembers();
+            }
+        }
+        System.out.println("end of the list.");
+
+    }
+
     public String printClasses() {
+
+
         StringBuilder sb = new StringBuilder();
         for (FitnessClass fitnessClass : classes) {
             if (fitnessClass != null) {
@@ -64,6 +84,25 @@ public class Schedule {
         }
         return sb.toString();
     }
+
+    public FitnessClass[] getClasses() {
+        return classes;
+    }
+
+    public boolean validLocation(FitnessClass fitnessClass){
+
+        for(FitnessClass fitnessClass1: getClasses()){
+            if(fitnessClass1!=null){
+                if(fitnessClass1.getClassInfo().name().equalsIgnoreCase(fitnessClass.getClassInfo().name()) && fitnessClass1.getInstructor().name().equalsIgnoreCase(fitnessClass.getInstructor().name())&& fitnessClass1.getStudio().name().toString().equalsIgnoreCase(fitnessClass.getStudio().name().toString())){
+                    return true;
+                }
+
+            }
+        }
+
+        return false;
+    }
+
 
 }
 

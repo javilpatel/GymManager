@@ -41,7 +41,7 @@ public class Profile implements Comparable<Profile> {
         if (this == obj) return true;
         if (obj == null || getClass() != obj.getClass()) return false;
         Profile other = (Profile) obj;
-        return fname.equals(other.fname) && lname.equals(other.lname) && dob.equals(other.dob);
+        return fname.equalsIgnoreCase(other.fname) && lname.equalsIgnoreCase(other.lname) && dob.equals(other.dob);
     }
 
     @Override

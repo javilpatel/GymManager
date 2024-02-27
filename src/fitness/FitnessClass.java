@@ -58,10 +58,18 @@ public class FitnessClass {
         return guests.remove(guest);
     }
     public boolean addMember(Member member) {
-        if (member instanceof Basic && !member.getHomeStudio().equals(this.studio)) {
+        // This logic assumes the members list can check for existing members.
+        if (members.contains(member)) {
+            // Member is already in the class, so we don't add them again.
             return false;
+        } else if (member instanceof Basic && !member.getHomeStudio().equals(this.studio)) {
+            // Basic member trying to attend a class at a different studio.
+            return false;
+        } else {
+            // Add the member to the class.
+            members.add(member);
+            return true;
         }
-        return members.add(member);
     }
     public boolean removeMember(Member member) {
         return members.remove(member);
@@ -69,9 +77,8 @@ public class FitnessClass {
 
     @Override
     public String toString() {
-        return getClassInfo().name() + " - " + getInstructor().name() + ", " + getTime().toString() + ", " + getStudio().toString();
+        return String.format("%s - %s, %s, %s", classInfo, instructor, time, studio.name());
     }
-
 
 }
 
