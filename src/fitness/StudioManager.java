@@ -273,23 +273,6 @@ public class StudioManager {
         }
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-//        if (fitnessClass == null) {
-//            System.out.println(classType + " - class name does not exist.");
-//            return;
-//        }
         FitnessClass fitnessClass = schedule.findClass(classType.name(), instructor, studio);
 
         if (fitnessClass.getMembers().contains(member)) {
@@ -406,12 +389,12 @@ public class StudioManager {
             }
         } else {
             if (!fitnessClass.removeMember(member)) {
-                System.out.println("Failed to remove member from the class.");
+                System.out.println(firstName + " " + lastName + " is not in " + fitnessClass.getInstructor().name() + ", " + fitnessClass.getTime() + ", " + fitnessClass.getStudio());
                 return;
             }
         }
 
-        System.out.println("Attendance removed successfully.");
+        System.out.println(firstName + " " + lastName + " is removed from " + fitnessClass.getInstructor().name() + ", " + fitnessClass.getTime() + ", " + fitnessClass.getStudio());
     }
 
     // Inside StudioManager class
