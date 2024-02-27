@@ -50,6 +50,13 @@ public class MemberList {
         return false;
     }
 
+    public boolean addGuest(Member member){
+        if (size == members.length) {
+            grow();
+        }
+        members[size++] = member;
+        return true;
+    }
 
     public boolean add(Member member) {
         if (contains(member)) {
@@ -88,10 +95,10 @@ public class MemberList {
                     member = new Basic(profile, expire, homeStudio, 0); // Assuming 0 classes attended for Basic members
                     break;
                 case "F":
-                    member = new Family(profile, expire, homeStudio, false); // Assuming no guest for Family members
+                    member = new Family(profile, expire, homeStudio, true); // Assuming no guest for Family members
                     break;
                 case "P":
-                    member = new Premium(profile, expire, homeStudio, 0); // Assuming 0 guest passes for Premium members
+                    member = new Premium(profile, expire, homeStudio, 3);
                     break;
             }
             if (member != null) {

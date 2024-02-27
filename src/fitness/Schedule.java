@@ -68,6 +68,10 @@ public class Schedule {
                 System.out.println("[Attendees]");
                 classes[i].getMembers().printAllMembers();
             }
+            if(classes[i].getGuests().getSize() > 0){
+                System.out.println("[Guests]");
+                classes[i].getGuests().printAllMembers();
+            }
         }
         System.out.println("end of the list.");
 

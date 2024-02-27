@@ -272,20 +272,24 @@ public class StudioManager {
             return;
         }
 
-
         FitnessClass fitnessClass = schedule.findClass(classType.name(), instructor, studio);
 
-        if (fitnessClass.getMembers().contains(member)) {
-            System.out.println(firstName + " " + lastName + " is already in the class.");
+        if (isGuest) {
+            if (member instanceof Basic) {
+                System.out.println(member.getProfile().getFname() + " " + member.getProfile().getLname() + " [BASIC] - not eligible to bring guests.");
+
+            } else if (!fitnessClass.isHomeStudio(member)) {
+                System.out.println(firstName + " " + lastName + " (guest) is attending a class at " + fitnessClass.getStudio().name() + " - home studio at " + member.getHomeStudio().name());
+            } else if (fitnessClass.addGuest(member)) {
+                System.out.println(firstName + " " + lastName + " (guest) attendance recorded " + fitnessClass.getClassInfo().name() + " at " + fitnessClass.getStudio());
+            }else {
+                System.out.println(firstName + " " + lastName + " " + "guess pass not available.");
+            }
             return;
         }
 
-        if (isGuest) {
-            if (!fitnessClass.addGuest(member)) {
-                System.out.println("Failed to add guest to the class.");
-            } else {
-                System.out.println(firstName + " " + lastName + " successfully added as a guest.");
-            }
+        if (fitnessClass.getMembers().contains(member)) {
+            System.out.println(firstName + " " + lastName + " is already in the class.");
             return;
         }
 
@@ -422,10 +426,10 @@ public class StudioManager {
                 member = new Basic(profile, expire, homeStudio, 0); // Assuming 0 classes attended initially for Basic members
                 break;
             case "Family":
-                member = new Family(profile, expire, homeStudio, false); // Assuming no guest for Family members
+                member = new Family(profile, expire, homeStudio, true); // Assuming no guest for Family members
                 break;
             case "Premium":
-                member = new Premium(profile, expire, homeStudio, 0); // Assuming 0 guest passes initially for Premium members
+                member = new Premium(profile, expire, homeStudio, 3); // Assuming 0 guest passes initially for Premium members
                 break;
             default:
                 throw new IllegalArgumentException("Invalid membership type");

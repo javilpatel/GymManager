@@ -1,10 +1,23 @@
 package fitness;
 
+/**
+ * Represents a generic member of the fitness center.
+ * This class provides the basic properties and functionalities
+ * for a fitness center member, including profile, membership expiration,
+ * and home studio location.
+ */
 public class Member implements Comparable<Member> {
     private Profile profile;
     private Date expire;
     private Location homeStudio;
 
+    /**
+     * Constructs a new Member with specified profile, expiration date, and home studio.
+     *
+     * @param profile    The profile of the member.
+     * @param expire     The expiration date of the membership.
+     * @param homeStudio The home studio of the member.
+     */
     public Member(Profile profile, Date expire, Location homeStudio) {
         this.profile = profile;
         this.expire = expire;
@@ -22,7 +35,12 @@ public class Member implements Comparable<Member> {
     public Location getHomeStudio() {
         return homeStudio;
     }
-
+    /**
+     * Calculates and returns the billing amount for the member.
+     * This method should be overridden by subclasses to provide specific billing calculations.
+     *
+     * @return The billing amount due for the member.
+     */
     public double bill() {
         // Return the next due amount
         return 0.0;
@@ -47,10 +65,22 @@ public class Member implements Comparable<Member> {
     }
 }
 
-// Basic class
+/**
+ * Represents a basic member of the fitness center.
+ * Basic members have a set number of classes they can attend each month,
+ * and their billing is calculated based on the base fee and any extra classes attended.
+ */
 class Basic extends Member {
     private int numClasses;
 
+    /**
+     * Constructs a new Basic member with specified profile, expiration, home studio, and number of classes.
+     *
+     * @param profile     The profile of the member.
+     * @param expire      The expiration date of the membership.
+     * @param homeStudio  The home studio of the member.
+     * @param numClasses  The number of classes attended by the member.
+     */
     public Basic(Profile profile, Date expire, Location homeStudio, int numClasses) {
         super(profile, expire, homeStudio);
         this.numClasses = numClasses;
@@ -71,10 +101,23 @@ class Basic extends Member {
     }
 }
 
-// Family class
+/**
+ * Represents a family member of the fitness center.
+ * Family members may have guest privileges and their billing is calculated
+ * over a specified billing cycle.
+ */
 class Family extends Member {
     private boolean guest;
 
+    /**
+     * Constructs a new Family member with specified profile, expiration,
+     * home studio, and guest privilege indicator.
+     *
+     * @param profile     The profile of the member.
+     * @param expire      The expiration date of the membership.
+     * @param homeStudio  The home studio of the member.
+     * @param guest       Indicates whether the member has guest privileges.
+     */
     public Family(Profile profile, Date expire, Location homeStudio, boolean guest) {
         super(profile, expire, homeStudio);
         this.guest = guest;
@@ -94,7 +137,11 @@ class Family extends Member {
     }
 }
 
-// Premium class
+/**
+ * Represents a premium member of the fitness center.
+ * Premium members receive a certain number of guest passes and
+ * their billing is calculated with potential discounts for long-term commitments.
+ */
 class Premium extends Member {
     private int guestPass;
 
@@ -112,6 +159,12 @@ class Premium extends Member {
             this.guestPass--;
         } else {
             System.out.println("No guest passes left.");
+        }
+    }
+
+    public void addGuestPass(){
+        if( this.guestPass <= 2){
+            this.guestPass++;
         }
     }
 
